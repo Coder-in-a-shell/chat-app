@@ -27,7 +27,7 @@ export const signup = async (req, res) => {
         if (newUser) {
             generateToken(newUser._id, res);
             await newUser.save();
-            return res.status(201).json({ _id: newUser._id, fullname: newUser.fullname, email: newUser.email, profilePic: newUser.profilePic });
+            return res.status(201).json(newUser);
         }
         else {
             return res.status(500).json({ message: "User creation failed" });
@@ -50,7 +50,7 @@ export const login = async (req, res) => {
             return res.status(400).json({ message: "Invalid credentials" });
         }
         generateToken(user._id, res);
-        return res.status(200).json({ _id: user._id, fullname: user.fullname, email: user.email, profilePic: user.profilePic });
+        return res.status(200).json(user);
 
     } catch (error) {
         console.log("error in login controller", error);
